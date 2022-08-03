@@ -11,4 +11,31 @@ repository = 'https://github.com/peaqnetwork/peaq-pay/'
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[workspace]
+members = [
+	".",
+]
+
 [dependencies]
+log = "0.4.16"
+codec = { package = 'parity-scale-codec', version = "2.0.0", default-features = false,  features = ['derive']}
+keyring = { version = "4.1.0-dev", git = "https://github.com/paritytech/substrate.git", rev = '7c6342047c992b6f3fa917d0d0448eb7e89afa6c', package = "sp-keyring" }
+
+[dependencies.sp-core]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+rev = '7c6342047c992b6f3fa917d0d0448eb7e89afa6c'
+version = '5.0.0'
+
+[dependencies.sp-runtime]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+rev = '7c6342047c992b6f3fa917d0d0448eb7e89afa6c'
+version = '5.0.0'
+
+[features]
+default = ["std"]
+std = [
+     'sp-runtime/std',
+     'sp-core/std',
+]
