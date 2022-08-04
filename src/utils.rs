@@ -2,6 +2,7 @@ use codec::{Decode, Encode};
 use keyring::sr25519;
 use log::trace;
 use sp_core::blake2_256;
+use sp_core::crypto;
 use sp_runtime::AccountId32 as AccountId;
 use std::io::Error;
 use std::str::FromStr;
@@ -32,4 +33,13 @@ pub fn parse_signatories(address: &str) -> AccountId {
     let to = sr25519::sr25519::Public::from_str(&address).unwrap();
     let to = AccountId::decode(&mut &to.0[..]).unwrap();
     to
+}
+
+pub fn generate_pair<TPair>(seed: &str) -> TPair
+where
+    TPair: crypto::Pair<Seed = [u8; 32]>,
+{
+    let seed = hex::decode(seed).unwrap();
+    let seed: [u8; 32] = seed[..].try_into().unwrap();
+    TPair::from_seed(&seed)
 }
