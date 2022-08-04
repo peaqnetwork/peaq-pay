@@ -31,15 +31,15 @@ pub enum ChainError {
     TypeInfo,
 )]
 pub struct Timepoint<BlockNumber> {
-    pub(crate) height: BlockNumber,
-    pub(crate) index: u32,
+    pub height: BlockNumber,
+    pub index: u32,
 }
 
 pub struct ApproveTransactionParams {
     pub ws_url: String,
     pub threshold: u16,
     pub max_weight: u64,
-    pub other_signatories: Vec<AccountId>,
+    pub other_signatories: Vec<String>,
     pub timepoint: Timepoint<BlockNumber>,
     pub call_hash: String,
     pub seed: String,
@@ -120,6 +120,11 @@ pub fn approve_transaction(params: ApproveTransactionParams) -> Option<ChainErro
         let maybe_timepoint = Some(params.timepoint);
         let max_weight: u64 = 1000000000;
         // trace!("\n Composed Call: {:?}\n", multi_param);
+
+        let other_signatories: Vec<AccountId> = other_signatories
+            .iter()
+            .map(|si| utils::parse_signatories(si.as_str()))
+            .collect();
 
         // compose the extrinsic with all the element
         #[allow(clippy::redundant_clone)]
