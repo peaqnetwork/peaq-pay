@@ -27,7 +27,7 @@ On this current MVP, three API methods were exposed;
 * fund_multisig_wallet
 * approve_transaction
 
-#### create_multisig_wallet(signatories: Vec<String>, threshold: u16) -> Result<String, Error>
+#### create_multisig_wallet(signatories: Vec\<String\>, threshold: u16) -> Result\<String, Error\>
 
 `signatories:` List of wallet addresses of signatories to the escrow account.
 
@@ -46,11 +46,11 @@ fn main() {
     ];
 
     let address = peaq_pay::utils::create_multisig_wallet(signatories, threshold).unwrap();
-    println!("\n\n multisig wallet: {}", address);
+    println!("multisig wallet: {}", address);
 }
 ```
 
-#### fund_multisig_wallet(ws_url: String, address: String, amount: u128, seed: String ) -> Option<ChainError>
+#### fund_multisig_wallet(ws_url: String, address: String, amount: u128, seed: String ) -> Option\<ChainError\>
 
 `ws_url:` Network websocket node address.
 
@@ -91,7 +91,7 @@ fn main() {
 ```
 
 
-### approve_transaction(params: ApproveTransactionParams) -> Option<ChainError>
+### approve_transaction(params: ApproveTransactionParams) -> Option\<ChainError\>
 
 Param: ApproveTransactionParams 
 ```
